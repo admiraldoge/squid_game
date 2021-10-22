@@ -912,7 +912,7 @@ public class clothing : MonoBehaviour
         {
             show_run = true;
 
-            coroutine_random_clothing = StartCoroutine(start_random_clothing());
+           //coroutine_random_clothing = StartCoroutine(start_random_clothing());
 
           
         }
