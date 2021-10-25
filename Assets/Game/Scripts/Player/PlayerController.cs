@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public Boolean walk;
     public float walk_speed;
     public Animator ani;
+    public Boolean inField = false;
+    public Boolean alive = true;
 
     // Start is called before the first frame update  
     void Start()
@@ -44,6 +46,10 @@ public class PlayerController : MonoBehaviour
             ani.SetInteger("legs", 5);
         }
     }
-    
+
+    public void killPlayer()
+    {
+        alive = false;
+    }
     
 }
