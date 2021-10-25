@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,15 +7,14 @@ using UnityEngine.UI;
 
 public class CounterController : MonoBehaviour
 {
-    public float timeRemaining = 10;
+    private float timeRemaining = 10;
     public bool timerIsRunning = false;
     public Text timeText;
     private GameObject[] players;
+    public Boolean gameStarted = false;
 
     private void Start()
     {
-        // Starts the timer automatically
-        timerIsRunning = true;
         players = GameObject.FindGameObjectsWithTag("player");
     }
 
@@ -30,8 +30,17 @@ public class CounterController : MonoBehaviour
             else
             {
                 Debug.Log("Time has run out!");
-                timeRemaining = 0;
-                timerIsRunning = false;
+                //timeRemaining = 0;
+                if (gameStarted)
+                {
+                    timeRemaining = 0;
+                    timerIsRunning = false;
+                }
+                else
+                {
+                    timeRemaining = 75;
+                    gameStarted = true;
+                }
                 killAllPlayers();
             }
         }
@@ -55,5 +64,11 @@ public class CounterController : MonoBehaviour
             Debug.Log("Killing player"+i);
             playerController.killPlayer();
         }
+    }
+
+    public void setTimeRemainder(float timeToDisplay)
+    {
+        timeRemaining = timeToDisplay;
+        timerIsRunning = true;
     }
 }

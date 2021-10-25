@@ -6,10 +6,14 @@ using Random = UnityEngine.Random;
 
 public class GameController : MonoBehaviour
 {
+    private CounterController _counterController;
     public Boolean isRedLight = true;
     public float nextActionTime = 0.0f;
     public float period = 0.1f;
     public MusicController _audioSource;
+    public Boolean gameStarted = false;
+    public Boolean gameStartedAlready = false;
+    public Double phaseError = 0.5;
 
     private double[] gameRounds = new double[9];
 
@@ -18,44 +22,60 @@ public class GameController : MonoBehaviour
     void Start()
     {
         GameObject audio = GameObject.Find("DollSong");
+        GameObject counter = GameObject.Find("Counter");
+        _counterController = counter.GetComponent<CounterController>();
         _audioSource = audio.GetComponent<MusicController>();
         //gameRounds[0] = {4.598, 3.84, 3.553,  3.082, 2.56, 2.325, 2.115, 1.933, 1.802 };
-        gameRounds[0] = 4.598;
-        gameRounds[1] = 3.84;
-        gameRounds[2] = 3.553;
-        gameRounds[3] = 3.082;
-        gameRounds[4] = 2.56;
-        gameRounds[5] = 2.325;
-        gameRounds[6] = 2.115;
-        gameRounds[7] = 1.933;
-        gameRounds[8] = 1.802;
+        gameRounds[0] = 4.598 + phaseError;
+        gameRounds[1] = 3.84 + phaseError;
+        gameRounds[2] = 3.553 + phaseError;
+        gameRounds[3] = 3.082 + phaseError;
+        gameRounds[4] = 2.56 + phaseError;
+        gameRounds[5] = 2.325 + phaseError;
+        gameRounds[6] = 2.115 + phaseError;
+        gameRounds[7] = 1.933 + phaseError;
+        gameRounds[8] = 1.802 + phaseError;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Time.time > nextActionTime )
+        if (gameStarted)
         {
-            isRedLight = !isRedLight;
-            Debug.Log("IsRedLight? "+isRedLight);
-            if (isRedLight)
+            if (gameStartedAlready)
             {
-                nextActionTime += 5;
-                _audioSource.stopSong();
-                Debug.Log("Cannot move! for 5 secs");
+                //_counterController.setTimeRemainder(75);
+                gameStartedAlready = false;
             }
-            else
+            if (Time.time > nextActionTime )
             {
-                //int gameRound = Random.Range(10, 20);
-                float gameRound = (float)gameRounds[roundIndex];
-                roundIndex = (roundIndex + 1) % 9;
-                Debug.Log("Game round lasts "+gameRound);
-                nextActionTime += gameRound;
-                //_audioSource.setMute(false);
-                _audioSource.updateSong(roundIndex);
-                Debug.Log("Can move!");
+                isRedLight = !isRedLight;
+                Debug.Log("IsRedLight? "+isRedLight);
+                if (isRedLight)
+                {
+                    nextActionTime += 5;
+                    _audioSource.stopSong();
+                    Debug.Log("Cannot move! for 5 secs");
+                }
+                else
+                {
+                    //int gameRound = Random.Range(10, 20);
+                    float gameRound = (float)gameRounds[roundIndex];
+                    _audioSource.updateSong(roundIndex);
+                    if(roundIndex != 8) roundIndex = (roundIndex + 1) % 9;
+                    Debug.Log("Game round lasts "+gameRound);
+                    nextActionTime += gameRound;
+                    //_audioSource.setMute(false);
+                    Debug.Log("Can move!");
+                }
+                // execute block of code here
             }
-            // execute block of code here
+        }
+        else
+        {
+            nextActionTime += 10;
+            gameStarted = true;
+            //_counterController.setTimeRemainder(10);
         }
 
     }
