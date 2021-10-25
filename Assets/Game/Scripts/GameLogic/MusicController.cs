@@ -14,6 +14,7 @@ public class MusicController : MonoBehaviour
     public AudioClip song120;
     public AudioClip song150;
     public AudioClip song180;
+    public AudioClip killSong;
     
     private AudioClip[] songs = new AudioClip[9];
 
@@ -50,6 +51,12 @@ public class MusicController : MonoBehaviour
     public void stopSong()
     {
         _audioSource.Stop();
+    }
+
+    public void setKillSong()
+    {
+        _audioSource.clip = killSong;
+        _audioSource.Play();
     }
 
     public void setMute(Boolean value)

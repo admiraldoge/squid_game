@@ -59,6 +59,7 @@ public class GameController : MonoBehaviour
                 {
                     nextActionTime += 5;
                     _audioSource.stopSong();
+                    _audioSource.setKillSong();
                     Debug.Log("Cannot move! for 5 secs");
                 }
                 else
