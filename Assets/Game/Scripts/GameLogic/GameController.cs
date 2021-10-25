@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 public class GameController : MonoBehaviour
 {
     private CounterController _counterController;
+    private DollController _dollController;
     public Boolean isRedLight = true;
     public float nextActionTime = 0.0f;
     public float period = 0.1f;
@@ -23,6 +24,8 @@ public class GameController : MonoBehaviour
     {
         GameObject audio = GameObject.Find("DollSong");
         GameObject counter = GameObject.Find("Counter");
+        GameObject doll = GameObject.Find("DollHead");
+        _dollController = doll.GetComponent<DollController>();
         _counterController = counter.GetComponent<CounterController>();
         _audioSource = audio.GetComponent<MusicController>();
         //gameRounds[0] = {4.598, 3.84, 3.553,  3.082, 2.56, 2.325, 2.115, 1.933, 1.802 };
@@ -51,6 +54,7 @@ public class GameController : MonoBehaviour
             {
                 isRedLight = !isRedLight;
                 Debug.Log("IsRedLight? "+isRedLight);
+                _dollController.rotateHead();
                 if (isRedLight)
                 {
                     nextActionTime += 5;
