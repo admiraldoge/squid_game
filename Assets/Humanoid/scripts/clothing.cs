@@ -898,7 +898,7 @@ public class clothing : MonoBehaviour
 
 
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(1000);
 
         StopCoroutine(coroutine_random_clothing);
         coroutine_random_clothing = StartCoroutine(start_random_clothing());
@@ -912,7 +912,7 @@ public class clothing : MonoBehaviour
         {
             show_run = true;
 
-           //coroutine_random_clothing = StartCoroutine(start_random_clothing());
+           coroutine_random_clothing = StartCoroutine(start_random_clothing());
 
           
         }
