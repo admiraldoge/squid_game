@@ -22,7 +22,7 @@ public class CounterController : MonoBehaviour
     {
         if (timerIsRunning)
         {
-            if (timeRemaining > 0)
+            if (timeRemaining >= 0)
             {
                 timeRemaining -= Time.deltaTime;
                 DisplayTime(timeRemaining);
@@ -35,13 +35,13 @@ public class CounterController : MonoBehaviour
                 {
                     timeRemaining = 0;
                     timerIsRunning = false;
+                    killAllPlayers();
                 }
                 else
                 {
-                    timeRemaining = 75;
+                    timeRemaining = 90;
                     gameStarted = true;
                 }
-                killAllPlayers();
             }
         }
     }
