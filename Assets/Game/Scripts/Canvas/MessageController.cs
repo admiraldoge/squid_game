@@ -27,12 +27,13 @@ public class MessageController : MonoBehaviour
     public void showLoseMessage()
     {
         _endGameMessage.text = "Perdiste";
-        _endGameMessage.color = Color.red;
+        _endGameMessage.color = Color.white;
         _bloodImage.enabled = true;
     }
 
     public void showWinMessage()
     {
-        
+        _endGameMessage.text = "Pasaste a la siguiente ronda";
+        _endGameMessage.color = new Color(75,181,77) ;
     }
 }

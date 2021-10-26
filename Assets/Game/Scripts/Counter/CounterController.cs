@@ -7,7 +7,8 @@ using UnityEngine.UI;
 
 public class CounterController : MonoBehaviour
 {
-    private float timeRemaining = 10;
+    public int gameTime;
+    public float timeRemaining;
     public bool timerIsRunning = false;
     public Text timeText;
     private GameObject[] players;
@@ -39,7 +40,7 @@ public class CounterController : MonoBehaviour
                 }
                 else
                 {
-                    timeRemaining = 90;
+                    timeRemaining = gameTime;
                     gameStarted = true;
                 }
             }
@@ -61,8 +62,11 @@ public class CounterController : MonoBehaviour
         for (int i = 0; i < players.Length; i++)
         {
             PlayerController playerController = players[i].GetComponent<PlayerController>();
-            Debug.Log("Killing player"+i);
-            playerController.killPlayer();
+            if (playerController.inField)
+            {
+                Debug.Log("Killing player"+i);
+                playerController.killPlayer();
+            }
         }
     }
 

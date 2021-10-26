@@ -89,5 +89,8 @@ public class PlayerController : MonoBehaviour
         _musicController.Play();
         _messageController.showLoseMessage();
     }
-    
+    public void makePlayerWin()
+    {
+        _messageController.showWinMessage();
+    }
 }

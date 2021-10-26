@@ -28,8 +28,10 @@ public class OnLineCollision : MonoBehaviour
         }
         else if(collision.collider.name == "EndLine")
         {
-            _playerController.inField = !_playerController.inField;
-            Debug.Log("Player left the game");
+            //_playerController.inField = !_playerController.inField;
+            _playerController.inField = false;
+            _playerController.makePlayerWin();
+            Debug.Log("Player pass to next round");
         }
     }
 }
